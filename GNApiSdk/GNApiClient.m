@@ -11,7 +11,7 @@
 
 @implementation GNApiClient
 
-NSString *const kGNApiBaseUrlProduction = @"https://api.gerencianet.com.br/v1";
+NSString *const kGNApiBaseUrlProduction = @"https://tokenizer.gerencianet.com.br";
 NSString *const kGNApiBaseUrlSandbox = @"https://sandbox.gerencianet.com.br/v1";
 
 - (instancetype)initWithConfig:(GNConfig *)config {
@@ -28,7 +28,7 @@ NSString *const kGNApiBaseUrlSandbox = @"https://sandbox.gerencianet.com.br/v1";
     NSString *url = [NSString stringWithFormat:@"%@%@", (_config.sandbox ? kGNApiBaseUrlSandbox : kGNApiBaseUrlProduction), route];
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setValue:_config.accountCode forHTTPHeaderField:@"account-code"];
-    
+    NSLog(@"🟢🟢🟢 %@", url)
     return [PMKPromise new:^(PMKFulfiller fulfill, PMKRejecter reject) {
         
         id successBlock = ^(AFHTTPRequestOperation *operation, id responseObject) {
