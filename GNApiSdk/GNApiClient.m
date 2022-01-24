@@ -11,7 +11,6 @@
 
 @implementation GNApiClient
 
-NSString *const kGNApiBaseUrlProductionAPI = @"https://api.gerencianet.com.br";
 NSString *const kGNApiBaseUrlProduction = @"https://tokenizer.gerencianet.com.br";
 NSString *const kGNApiBaseUrlSandbox = @"https://sandbox.gerencianet.com.br/v1";
 
@@ -25,8 +24,8 @@ NSString *const kGNApiBaseUrlSandbox = @"https://sandbox.gerencianet.com.br/v1";
     if(!_config.accountCode){
         [NSException raise:@"Account code not defined" format:@"Please setup your GN account code before making requests"];
     }
-    NSString *prodUrl = route == @"/card" ? kGNApiBaseUrlProduction : kGNApiBaseUrlProductionAPI;
-    NSString *url = [NSString stringWithFormat:@"%@%@", (_config.sandbox ? kGNApiBaseUrlSandbox : prodUrl), route];
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", (_config.sandbox ? kGNApiBaseUrlSandbox : kGNApiBaseUrlProduction), route];
     AFHTTPRequestOperationManager *httpManager = [AFHTTPRequestOperationManager manager];
     [httpManager.requestSerializer setValue:_config.accountCode forHTTPHeaderField:@"account-code"];
     NSLog(@"🟢🟢🟢 %@", url);
